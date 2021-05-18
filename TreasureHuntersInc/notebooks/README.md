@@ -1,54 +1,47 @@
-# Probably Interesting Dataset - Project 1
+## Project - 4 : Treasure Hunters Inc.
 
-#Project Description
-The project tries to evaluate the Gaussian Mixture Model distributions
-leveraging the Expectation-Maximization algorithm
+A game where the player in a map has to reach the treasure overcoming the monsters and blockers in between the path.
+Goal : Get the optimal path from source to destination.
 
-# Input data and Output Information
+## Input data and Output Information
+Input is a map that consists of a Player, Monster, Blocker and Treasure in a 5 X 5 grid.
 
-This project takes raw data related to wine quality and power consumption.  
-Loads the data into data frames and then performs univariate distribution analysis
-of the possible Gaussian Mixture models, which analyzes different attributes of a dataset.
+Output expected is an optimal path that helps the player to reach the treasure by avoiding the
+monsters and the blockers.
 
-# Source of Raw/Processed Data
+## Rules that apply
 
-Raw data has been taken from :
- ##### https://www.kaggle.com/uciml/red-wine-quality-cortez-et-al-2009
- ##### https://www.kaggle.com/uciml/electric-power-consumption-data-set?select=household_power_consumption.txt
- 
+1. For each position we have 4 possible moves, 
+UP, DOWN, LEFT, RIGHT, so each position in game board, 
+player will have 4 possible ways to move.
 
-# File manipulations
-Initial power consumption file was a ".txt" file.
-Converted that to a csv file
+2. There are 25 possible position on the game board.
 
-# Steps followed in the project
+## Rewards Policy
+Rewards Policy
 
-a. Identify and understand the datasets.
-b. Load the datasets in to dataframes.
-c. Plot the distributions prior to applying our algorithm, visualize the plots to understand what can be our possible "k" values for the initial clusters count and also get approximate the mean and sigma values.
-d. Pass the attribute values, mean, sigma and threshold to the algorithm and run the expectation-maximization algorithm that we tried to implement.
-e. Replot the distributions to get a Gaussian distribution and share the observations.
+Initializing the 25 x 5 rewards table with possible transitions from transitions table and the game board.
+The Policy : 
+There are 25 possible position on the game board, 
+we are going to define a rewards for each possible state in the grid.
+Defining the rewards policy..
+Whenever the player encounters a Monster, the reward is -10
+Whenever the player encounters a Blocker, the reward is -5
+Whenever the player encounters the Treasure, the reward is +10
+Whenever the Player encounters a * , the reward is +1 so that the Player can move. 
+Invalid moves from transition tables get a 0 reward.
 
-Please Note : 
-1. Both the data sets are handled in same notebook - 738 HW-1
-2. Logic for E-M has inline explanations in form of comments.
-3. There are few assumptions(understanding by multiple trials) considered during the execution.
- 
-# Reports
-Reports are available under the reports folders.
+## Steps followed in the project
+
+1. Initialize transition,action and rewards tables
+2. Build and Run the Reinforcement learning model on the map.
+3. Build the QL table
+4. Identify the optimal path from QLearning table execution.
 
 # Observations
 
-The gaussian mixture model with EM shows a great distribution of the individual attributes of the wine quality and power 
-consumption dataset.
+I observed that when we increase the epochs, better learning models are achieved.
+The 200 epochs map is bit more complex than the normal one and still the model could achieve the
+optimal path. The same map in 10 epochs run couldn't work efficiently.
 
-Initially when I considered random initial values, I got very strange graphs as output but, once I evaluated the mean 
-from the initial plots and approximated sigma values helped me get better plots.
-
-So, I feel that a lot depends upon the initial values being considered as well.
-
-Also, I felt sometimes during this project that K, as in the clusters, should not be pictorially identified rather it
-has to be identified more by business scenario requirement.
-
-Upon multiple runs, I identified that the convergence condition sometimes doesn't meet so I added a max iteration count.
-That's because attribute value ranges decide the mean value difference and the threshold for the delta of the means will not be a constant value for different attributes or datasets, hence I made that a function param to runEM and passed the threshold value to the method.
+Sources Used :  https://towardsdatascience.com/practical-reinforcement-learning-02-getting-started-with-q-learning-582f63e4acd9
