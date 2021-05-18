@@ -9,6 +9,10 @@ Input is a map that consists of a Player, Monster, Blocker and Treasure in a 5 X
 Output expected is an optimal path that helps the player to reach the treasure by avoiding the
 monsters and the blockers.
 
+## Policies used:
+Base Implementation - Notebook : 738-HW4-200epochs and 738-HW-4
+Greedy Epsilon - Notebook : 738-HW-4-RewardsPolicy-2
+
 ## Rules that apply
 
 1. For each position we have 4 possible moves, 
