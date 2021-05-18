@@ -11,6 +11,7 @@ monsters and the blockers.
 
 ## Policies used:
 Base Implementation - Notebook : 738-HW4-200epochs and 738-HW-4
+
 Greedy Epsilon - Notebook : 738-HW-4-RewardsPolicy-2
 
 ## Rules that apply
